@@ -6,7 +6,7 @@ import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 
 
-const Login = () => {
+const Login = (props) => {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -30,6 +30,7 @@ const Login = () => {
       );
       toast.success(resp.data.message);
       localStorage.setItem("user_token", resp.data.token);
+      props.setTokenState(resp.data.token);
       navigate("/")
     } catch (err) {
       toast.error(err.response.data.message);
