@@ -1,5 +1,5 @@
 import { Navbar, Nav, NavDropdown, Container, Col } from "react-bootstrap";
-// import LogoutComp from "../logout/Logout";
+import LogoutComp from "./logout";
 import { LinkContainer } from "react-router-bootstrap";
 import { useNavigate } from "react-router-dom";
 // import SearchMovies from "./SearchMovies";
@@ -44,8 +44,7 @@ function Navibar({ tokenState, user, setTokenState }) {
               </NavDropdown.Item>
               <NavDropdown.Divider />
               <NavDropdown.Item id="logoutDropdown">
-                to insert logout
-                {/* <LogoutComp setTokenState={setTokenState} /> */}
+                <LogoutComp setTokenState={setTokenState} />
               </NavDropdown.Item>
             </NavDropdown>
           </Col>
