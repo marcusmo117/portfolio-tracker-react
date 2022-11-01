@@ -17,7 +17,7 @@ function StockPage() {
     const symbol = params.stocksymbol
 
     // create websocket connection 
-    const socket = new WebSocket(`ws:${process.env.REACT_APP_WS_BACKEND_URL}`)
+    const socket = new WebSocket(`wss:${process.env.REACT_APP_WS_BACKEND_URL}`)
 
     // connection opened
     socket.addEventListener('open', function(event) {
