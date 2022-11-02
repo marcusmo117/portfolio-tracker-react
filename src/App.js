@@ -23,14 +23,18 @@ function App() {
   const [user, setUser] = useState();
 
   // create websocket connection
-  const socket = new WebSocket(`wss:${process.env.REACT_APP_WS_BACKEND_URL}`);
+  const socket = new WebSocket(`ws:${process.env.REACT_APP_WS_BACKEND_URL}`);
 
   useEffect(() => {
     console.log("page changed");
-    console.log("trying to disconnect from websocket server");
+    console.log("trying to unsub from websocket server");
     setTimeout(function () {
       socket.send(`unsub`);
     }, 2000);
+    // setTimeout(function () {
+    //   socket.close(1000, "deliberate closing test");
+    //   console.log("trying to disconnect from web server");
+    // }, 2200);
   }, [location]);
 
   // for navbar to change states
@@ -60,7 +64,7 @@ function App() {
         <Route path="/holdings" element={<Auth component={HoldingsPage} />} />
         <Route
           path="/stocks/:stocksymbol"
-          element={<Auth component={StockPage} />}
+          element={<Auth component={StockPage} socket={socket} />}
         />
         <Route
           path="/login"

@@ -31,7 +31,7 @@ function Auth(props) {
 
     return (
         // props.component refers to components that is put in on app.jsx
-        <props.component>
+        <props.component socket={props.socket}>
             
         </props.component>
     )
