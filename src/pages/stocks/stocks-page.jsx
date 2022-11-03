@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useLocation } from "react-router-dom";
 import axios from "axios";
 import Table from 'react-bootstrap/Table';
 import Container from 'react-bootstrap/Container';
@@ -8,6 +8,7 @@ import AddHoldingsButton from "../../components/addHoldings/addHoldingsButton";
 
 function StockPage(props) {
     const params = useParams()
+    let location = useLocation();
     const [profile, setProfile] = useState({});
     const [financials, setFinancials] = useState({});
     const [chart, setChart] = useState({}); 
@@ -15,7 +16,8 @@ function StockPage(props) {
     const [staticPrice, setStaticPrice] = useState({})
     const [resp, setResp] = useState({})
     const [stockPrice, setStockPrice] = useState(0) 
-    const symbol = params.stocksymbol
+    const [stockSymbol, setStockSymbol] = useState()
+    // const symbol = params.stocksymbol
 
     // create websocket connection 
     // const socket = props.socket
@@ -53,12 +55,17 @@ function StockPage(props) {
             setNews(news)
             setStaticPrice(staticPrice)
             setResp(response)
+            setStockSymbol(profile.ticker)
+            console.log("params:", params.stocksymbol)
+            console.log("stocksymbol for form:", stockSymbol)
         }
         fetchStock() //check this!!
         setTimeout(function() {
             props.socket.send(`${params.stocksymbol}`)
         }, 2100)
-    },[])
+    },[location])
+
+    // SOLVE BUG FOR NEW HOLDING TICKER
 
     return (
       <div className="App">
@@ -115,7 +122,7 @@ function StockPage(props) {
             </Table>
           </Container>
           <AddHoldingsButton
-            stockSymbol={symbol}
+            stockSymbol={stockSymbol}
           />
         </header>
       </div>

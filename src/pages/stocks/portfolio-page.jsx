@@ -66,35 +66,56 @@ function PortfolioPage() {
               const response = await axios.get(
                 `${process.env.REACT_APP_BACKEND_URL}/api/v1/stocks/oneprice/${holdings.ticker}`
               )
+              const profileResponse = await axios.get(
+                `${process.env.REACT_APP_BACKEND_URL}/api/v1/stocks/oneprofile/${holdings.ticker}`
+              )
               const price = await response.data.c
               holdings.price = await price
               holdings.id = id
               id += 1
+              const picture = await profileResponse.data.logo
+              holdings.logo = await picture
+              const name = await profileResponse.data.name
+              holdings.name = await name
               return holdings 
             })
           )
           setHoldings(addPrice)
           console.log(holdings)
+      }
+      fetchHoldings()
+    },[])
 
-          // to get total portfolio value 
-          let portValue = 0
+    useEffect(() => {
+      // let portValue = 0
+      // function sumPortValue(item) {
+      //   let holdingVal = item.price * item.quantity
+      //     portValue += holdingVal
+      // } 
+      const getTotalPortValue = async () => {
+        let portValue = 0
           holdings.forEach(myFunction);
 
           function myFunction(item) {
             let holdingVal = item.price * item.quantity
             portValue += holdingVal;
           }
-          console.log(portValue)  
-
-          // have to useeffect this on holdings change hehe
+        console.log(portValue)
+        setTotalPortValue(portValue)
       }
-      fetchHoldings()
-    },[])
+      getTotalPortValue()
+    },[holdings])
+
+    // const numberize = (num) => {
+    //   parseFloat(num).toLocaleString()
+    // }
+
+    // console.log("test calc: ", (100000.29).toLocaleString())
 
 
     return (
       <div className="App">
-        <Searchbar/>
+        {/* <Searchbar/> */}
         <header className="App-header">
           <p>
             <Container>
@@ -104,6 +125,7 @@ function PortfolioPage() {
                   <Table striped bordered hover variant="dark" size="sm">
                       <thead>
                           <tr>
+                              <th></th>
                               <th>Ticker</th>
                               <th>Price</th>
                               <th>Total gain/ loss</th>
@@ -116,13 +138,18 @@ function PortfolioPage() {
                       <tbody>
                           {holdings && holdings.map((holding) => {
                               return <tr key={holding.id} id={holding.id}>
-                                  <td>{holding.ticker}</td>
-                                  <td>{holding.price}</td>
-                                  <td>{(holding.price - (holding.totalCost/(holding.quantity))) * holding.quantity}</td>
+                                  <td><img src={`${holding.logo}`}></img></td>
+                                  <td>
+                                    <p>{`${holding.name} (${holding.ticker})`}</p>
+                                  </td>
+                                  <td>{(holding.price).toLocaleString()}</td>
+                                  <td>{((parseFloat(holding.price) - (parseFloat(holding.totalCost)/parseFloat(holding.quantity))) * parseFloat(holding.quantity)).toLocaleString()}</td>
                                   <td>{holding.quantity}</td>
-                                  <td>{(holding.totalCost/(holding.quantity))}</td>
-                                  <td>{holding.price * holding.quantity}</td>
-                                  <td>to insert also</td>
+                                  <td>{(parseFloat(holding.totalCost)/parseFloat(holding.quantity)).toLocaleString()}</td>
+                                  <td>{(parseFloat(holding.price) * parseFloat(holding.quantity)).toLocaleString()}</td>
+                                  {totalPortValue && (
+                                    <td>{((parseFloat(holding.price) * parseFloat(holding.quantity)) / parseFloat(totalPortValue)).toFixed(5) }</td>
+                                  )}
                               </tr>
                           })}
                       </tbody>
