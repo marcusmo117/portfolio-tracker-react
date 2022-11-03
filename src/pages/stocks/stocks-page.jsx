@@ -1,31 +1,36 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useLocation } from "react-router-dom";
 import axios from "axios";
 import Table from 'react-bootstrap/Table';
 import Container from 'react-bootstrap/Container';
 import Placeholder from 'react-bootstrap/Placeholder';
 import AddHoldingsButton from "../../components/addHoldings/addHoldingsButton";
 
-function StockPage() {
+function StockPage(props) {
     const params = useParams()
+    let location = useLocation();
     const [profile, setProfile] = useState({});
     const [financials, setFinancials] = useState({});
     const [chart, setChart] = useState({}); 
     const [news, setNews] = useState([]);
+    const [staticPrice, setStaticPrice] = useState({})
     const [resp, setResp] = useState({})
     const [stockPrice, setStockPrice] = useState(0) 
-    const symbol = params.stocksymbol
+    const [stockSymbol, setStockSymbol] = useState()
+    // const symbol = params.stocksymbol
 
     // create websocket connection 
-    const socket = new WebSocket(`wss:${process.env.REACT_APP_WS_BACKEND_URL}`)
+    // const socket = props.socket
+    // new WebSocket(`ws:${process.env.REACT_APP_WS_BACKEND_URL}`)
+
 
     // connection opened
-    socket.addEventListener('open', function(event) {
+    props.socket.addEventListener('open', function(event) {
       console.log('Connected to websocket server')
     })
 
     // listen for messages 
-    socket.addEventListener('message', function(event) {
+    props.socket.addEventListener('message', function(event) {
         const data = JSON.parse(event.data)
         // console.log('converted data: ', data.data[0].p)
         setStockPrice(data.data[0].p)
@@ -36,24 +41,31 @@ function StockPage() {
             const response = await axios.get(
               `${process.env.REACT_APP_BACKEND_URL}/api/v1/stocks/${params.stocksymbol}`
             )
-            const { profile, financials, chart, news } = response.data;
+            const { profile, financials, chart, news, staticPrice } = response.data;
             
             console.log(profile)
             console.log(financials)
             console.log(chart)
             console.log(news)
+            console.log(staticPrice)
 
             setProfile(profile)
             setFinancials(financials)
             setChart(chart)
             setNews(news)
+            setStaticPrice(staticPrice)
             setResp(response)
+            setStockSymbol(profile.ticker)
+            console.log("params:", params.stocksymbol)
+            console.log("stocksymbol for form:", stockSymbol)
         }
         fetchStock() //check this!!
         setTimeout(function() {
-            socket.send(`${params.stocksymbol}`)
+            props.socket.send(`${params.stocksymbol}`)
         }, 2100)
-    },[])
+    },[location])
+
+    // SOLVE BUG FOR NEW HOLDING TICKER
 
     return (
       <div className="App">
@@ -63,7 +75,11 @@ function StockPage() {
           </p>
             <h1>{profile.name}</h1>
           <p>
-            <h2>Price: {stockPrice}</h2>
+            {stockPrice ? (
+              <h2>Price: {stockPrice}</h2>
+            ) : (
+              <h2>Price: {staticPrice.c}</h2>
+            )}
           </p>
           <Container>
             <Table striped bordered hover variant="dark" size="sm">
@@ -106,7 +122,7 @@ function StockPage() {
             </Table>
           </Container>
           <AddHoldingsButton
-            stockSymbol={symbol}
+            stockSymbol={stockSymbol}
           />
         </header>
       </div>

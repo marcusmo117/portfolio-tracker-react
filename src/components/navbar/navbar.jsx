@@ -2,6 +2,7 @@ import { Navbar, Nav, NavDropdown, Container, Col } from "react-bootstrap";
 import LogoutComp from "./logout";
 import { LinkContainer } from "react-router-bootstrap";
 import { useNavigate } from "react-router-dom";
+import Searchbar from "../searchbar/searchbar";
 // import SearchMovies from "./SearchMovies";
 
 
@@ -17,7 +18,7 @@ function Navibar({ tokenState, user, setTokenState }) {
       bg="dark"
       variant="dark"
       sticky="top"
-      style={{ color: "white", margin: "0px 0px 50px 0px" }}>
+      style={{ color: "white", margin: "0px 0px 0px 0px" }}>
       {tokenState ? (
         <Container fluid>
           <Col className="d-flex justify-content-start align-items-center">
@@ -31,7 +32,7 @@ function Navibar({ tokenState, user, setTokenState }) {
             </LinkContainer>
           </Col>
           <Col xs={5}>
-            to insert searchbar
+            <Searchbar/>
           </Col>
           <Col className="d-flex justify-content-end align-items-center">
             <NavDropdown

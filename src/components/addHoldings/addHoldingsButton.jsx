@@ -28,6 +28,11 @@ function AddHoldingsButton(props) {
     setHolding({"ticker": props.stockSymbol, "email": user.data})
   },[])
 
+  useEffect(() => {
+    setTicker(props.stockSymbol)
+    setHolding({"ticker": props.stockSymbol, "email": user.data})
+  },[props.stockSymbol])
+
   const handleChange = (e) => {
     setHolding({
       ...holding,
