@@ -6,6 +6,7 @@ import jwt_decode from 'jwt-decode'
 import Container from 'react-bootstrap/Container';
 import Table from 'react-bootstrap/Table';
 import Spinner from 'react-bootstrap/Spinner';
+import { Link } from "react-router-dom";
 
 function PortfolioPage() {
     const [holdings, setHoldings] = useState([]);
@@ -187,9 +188,8 @@ function PortfolioPage() {
                                 return <tr key={holding.id} id={holding.id}>
                                     <td><img src={`${holding.logo}`}></img></td>
                                     <td>
-                                      <a href={`${process.env.REACT_APP_FRONTEND_URL}/stocks/${holding.ticker}`} style={{textDecoration: 'none', color: 'white'}}>
+                                      <Link to={`${process.env.REACT_APP_FRONTEND_URL}/stocks/${holding.ticker}`} style={{textDecoration: 'none', color: 'white'}}></Link>
                                         <p>{`${holding.name} (${holding.ticker})`}</p>
-                                      </a>
                                     </td>
                                     <td>{(holding.price).toLocaleString()}</td>
                                     <td>{`${((parseFloat(holding.price) - (parseFloat(holding.totalCost)/parseFloat(holding.quantity))) * parseFloat(holding.quantity)).toLocaleString()} (${((((parseFloat(holding.price) - (parseFloat(holding.totalCost)/parseFloat(holding.quantity))) * parseFloat(holding.quantity)) / parseFloat(holding.totalCost))*100).toFixed(2)}%)`}</td>
