@@ -5,6 +5,7 @@ import Table from 'react-bootstrap/Table';
 import Container from 'react-bootstrap/Container';
 import Placeholder from 'react-bootstrap/Placeholder';
 import AddHoldingsButton from "../../components/addHoldings/addHoldingsButton";
+import Spinner from 'react-bootstrap/Spinner';
 
 function StockPage(props) {
     const params = useParams()
@@ -70,60 +71,69 @@ function StockPage(props) {
     return (
       <div className="App">
         <header className="App-header">
-          <p>
-            <a href={`${profile.weburl}`} target="_blank"><img src={`${profile.logo}`}></img></a>
-          </p>
-            <h1>{profile.name}</h1>
-          <p>
-            {stockPrice ? (
-              <h2>Price: {stockPrice}</h2>
-            ) : (
-              <h2>Price: {staticPrice.c}</h2>
-            )}
-          </p>
-          <Container>
-            <Table striped bordered hover variant="dark" size="sm">
-                {resp.data &&
-                    <tbody>
-                        <tr>
-                            <td>{`52-week high: (${financials['metric']['52WeekHighDate']})`}</td>
-                            <td>{financials['metric']['52WeekHigh']}</td>
-                        </tr>
-                        <tr>
-                            <td>{`52-week low: (${financials['metric']['52WeekLowDate']})`}</td>
-                            <td>{financials['metric']['52WeekLow']}</td>
-                        </tr>
-                        <tr>
-                            <td>Market cap:</td>
-                            <td>{(financials.metric.marketCapitalization).toLocaleString()}</td>
-                        </tr>
-                        <tr>
-                            <td>Beta:</td>
-                            {resp.data && <td>{financials['metric']['beta']} </td>}
-                        </tr>
-                        <tr>
-                            <td>P/E ratio (TTM):</td>
-                            <td>{financials.metric.peBasicExclExtraTTM}</td>
-                        </tr>
-                        <tr>
-                            <td>P/S ratio (TTM):</td>
-                            <td>{financials.metric.psTTM}</td>
-                        </tr>
-                        <tr>
-                            <td>D/E ratio:</td>
-                            <td>{financials['metric']['totalDebt/totalEquityAnnual']}</td>
-                        </tr>
-                        <tr>
-                            <td>ROE (TTM):</td>
-                            <td>{financials['metric']['roeTTM']}</td>
-                        </tr>
-                    </tbody>
-                }
-            </Table>
-          </Container>
-          <AddHoldingsButton
-            stockSymbol={stockSymbol}
-          />
+        {(Object.keys(profile).length === 0) ? (
+          <Spinner animation="border" role="status">
+            <span className="visually-hidden">Loading...</span>
+          </Spinner>
+        ) : (
+            <Container>
+              <p>
+                <a href={`${profile.weburl}`} target="_blank"><img src={`${profile.logo}`}></img></a>
+              </p>
+                <h1>{profile.name}</h1>
+              <p>
+                {stockPrice ? (
+                  <h2>Price: {stockPrice}</h2>
+                ) : (
+                  <h2>Price: {staticPrice.c}</h2>
+                )}
+              </p>
+              <Container>
+                <Table striped bordered hover variant="dark" size="sm">
+                    {resp.data &&
+                        <tbody>
+                            <tr>
+                                <td>{`52-week high: (${financials['metric']['52WeekHighDate']})`}</td>
+                                <td>{financials['metric']['52WeekHigh']}</td>
+                            </tr>
+                            <tr>
+                                <td>{`52-week low: (${financials['metric']['52WeekLowDate']})`}</td>
+                                <td>{financials['metric']['52WeekLow']}</td>
+                            </tr>
+                            <tr>
+                                <td>Market cap:</td>
+                                <td>{(financials.metric.marketCapitalization).toLocaleString()}</td>
+                            </tr>
+                            <tr>
+                                <td>Beta:</td>
+                                {resp.data && <td>{financials['metric']['beta']} </td>}
+                            </tr>
+                            <tr>
+                                <td>P/E ratio (TTM):</td>
+                                <td>{financials.metric.peBasicExclExtraTTM}</td>
+                            </tr>
+                            <tr>
+                                <td>P/S ratio (TTM):</td>
+                                <td>{financials.metric.psTTM}</td>
+                            </tr>
+                            <tr>
+                                <td>D/E ratio:</td>
+                                <td>{financials['metric']['totalDebt/totalEquityAnnual']}</td>
+                            </tr>
+                            <tr>
+                                <td>ROE (TTM):</td>
+                                <td>{financials['metric']['roeTTM']}</td>
+                            </tr>
+                        </tbody>
+                    }
+                </Table>
+              </Container>
+              <AddHoldingsButton
+                stockSymbol={stockSymbol}
+              />
+            </Container>
+          )
+        }
         </header>
       </div>
     );
