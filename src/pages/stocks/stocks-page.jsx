@@ -35,7 +35,7 @@ function StockPage(props) {
         const data = JSON.parse(event.data)
         // console.log('converted data: ', data.data[0].p)
         setStockPrice(data.data[0].p)
-    })
+    }) 
 
     useEffect(() => {
         const fetchStock = async () => {
