@@ -3,7 +3,7 @@ import { useParams, useLocation } from "react-router-dom";
 import axios from "axios";
 import Table from 'react-bootstrap/Table';
 import Container from 'react-bootstrap/Container';
-import Placeholder from 'react-bootstrap/Placeholder';
+import Placeholder from 'react-bootstrap/Placeholder'; 
 import AddHoldingsButton from "../../components/addHoldings/addHoldingsButton";
 import Spinner from 'react-bootstrap/Spinner';
 
