@@ -188,7 +188,7 @@ function PortfolioPage() {
                                 return <tr key={holding.id} id={holding.id}>
                                     <td><img src={`${holding.logo}`}></img></td>
                                     <td>
-                                      <Link to={`${process.env.REACT_APP_FRONTEND_URL}/stocks/${holding.ticker}`} style={{textDecoration: 'none', color: 'white'}}>
+                                      <Link to={`/stocks/${holding.ticker}`} style={{textDecoration: 'none', color: 'white'}}>
                                         <p>{`${holding.name} (${holding.ticker})`}</p>
                                       </Link>
                                     </td>
