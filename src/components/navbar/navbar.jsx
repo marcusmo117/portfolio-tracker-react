@@ -26,9 +26,11 @@ function Navibar({ tokenState, user, setTokenState }) {
             <LinkContainer to={"/"} style={{ color: "inherit", textDecoration: "inherit" }}>
               <Nav.Link className="d-inline-block me-4">Portfolio</Nav.Link>
             </LinkContainer>
-
             <LinkContainer to={"/holdings"} style={{ color: "inherit", textDecoration: "inherit" }}>
               <Nav.Link className="d-inline-block me-4">Holdings </Nav.Link>
+            </LinkContainer>
+            <LinkContainer to={"/allocation"} style={{ color: "inherit", textDecoration: "inherit" }}>
+              <Nav.Link className="d-inline-block me-4">Allocation </Nav.Link>
             </LinkContainer>
           </Col>
           <Col xs={5}>

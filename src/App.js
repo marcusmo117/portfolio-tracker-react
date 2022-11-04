@@ -12,6 +12,7 @@ import LoginPage from "./pages/login/login-page";
 import RegisterPage from "./pages/register/register-page";
 import StockPage from "./pages/stocks/stocks-page";
 import HoldingsPage from "./pages/stocks/holdings-page";
+import AllocationPage from "./pages/stocks/allocation-page";
 
 //components
 import Auth from "./components/auth/Auth";
@@ -23,7 +24,7 @@ function App() {
   const [user, setUser] = useState();
 
   // create websocket connection
-  const socket = new WebSocket(`wss:${process.env.REACT_APP_WS_BACKEND_URL}`);
+  const socket = new WebSocket(`ws:${process.env.REACT_APP_WS_BACKEND_URL}`);
 
   useEffect(() => {
     console.log("page changed");
@@ -62,6 +63,10 @@ function App() {
         {/* <Route path="/" /> */}
         <Route path="/" element={<Auth component={PortfolioPage} />} />
         <Route path="/holdings" element={<Auth component={HoldingsPage} />} />
+        <Route
+          path="/allocation"
+          element={<Auth component={AllocationPage} />}
+        />
         <Route
           path="/stocks/:stocksymbol"
           element={<Auth component={StockPage} socket={socket} />}
