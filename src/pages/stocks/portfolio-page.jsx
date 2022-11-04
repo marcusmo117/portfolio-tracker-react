@@ -188,8 +188,9 @@ function PortfolioPage() {
                                 return <tr key={holding.id} id={holding.id}>
                                     <td><img src={`${holding.logo}`}></img></td>
                                     <td>
-                                      <Link to={`${process.env.REACT_APP_FRONTEND_URL}/stocks/${holding.ticker}`} style={{textDecoration: 'none', color: 'white'}}></Link>
+                                      <Link to={`${process.env.REACT_APP_FRONTEND_URL}/stocks/${holding.ticker}`} style={{textDecoration: 'none', color: 'white'}}>
                                         <p>{`${holding.name} (${holding.ticker})`}</p>
+                                      </Link>
                                     </td>
                                     <td>{(holding.price).toLocaleString()}</td>
                                     <td>{`${((parseFloat(holding.price) - (parseFloat(holding.totalCost)/parseFloat(holding.quantity))) * parseFloat(holding.quantity)).toLocaleString()} (${((((parseFloat(holding.price) - (parseFloat(holding.totalCost)/parseFloat(holding.quantity))) * parseFloat(holding.quantity)) / parseFloat(holding.totalCost))*100).toFixed(2)}%)`}</td>
