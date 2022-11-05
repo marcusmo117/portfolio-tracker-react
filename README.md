@@ -1,74 +1,44 @@
-# Getting Started with Create React App
+# Portfolio Tracker App 
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Introduction
 
-## Available Scripts
+Portfolio Tracker App is a personal app that allows users to search for stocks (only US at the moment). Users can sign up and keep track of stocks that they’ve bought. Holdings are then calculated against current prices and relevant allocations can be viewed as well. Think Yahoo Finance but with added functionalities!
 
-In the project directory, you can run:
+Check us out at (https://portfolio-tracker-app.netlify.app).
 
-### `npm start`
+## Links to Repos
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- [React Frontend ](https://github.com/marcusmo117/portfolio-tracker-react)
+- [Express Backend ](https://github.com/marcusmo117/portfolio-tracker-express)
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Technologies
 
-### `npm test`
+- PERN stack
+- APIs from [Finnhub](https://finnhub.io/docs/api/introduction)
+  - Websocket for trades (live prices on stock page)
+  - Symbol Lookup (for search function in nav bar) 
+  - Company profile 2
+  - Basic Financials
+  - Quote 
+- Netlify for frontend React deployment
+- Render for backend Express deployment
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Packages used
 
-### `npm run build`
+- Handle browser request: Axios, Cors,
+- Authorisation: Bcrypt, Express-joi-validation, Jsonwebtoken
+- Autocomplete in search bar: [React Bootstrap Typeahead](https://www.npmjs.com/package/react-bootstrap-typeahead)
+- Style: React Bootstrap, React Chartjs-2, React toastify
+- Others: sequelize, websocket 
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Planned Model Schema
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+![image](https://user-images.githubusercontent.com/105291883/200094246-256401c2-97fc-4ef7-83ed-5366780cfb25.png)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `npm run eject`
+## Future Ideas
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
-
-# portfolio-tracker-react
-
-# portfolio-tracker-react
+- [ ] Properly working websocket with user differentiation (and maybe for portfolio page)
+- [ ] Include individual API key option
+- [ ] Add historical price graph and company news for stocks page
+- [ ] Handle non functioning tickers
