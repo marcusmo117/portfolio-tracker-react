@@ -4,7 +4,7 @@
 
 Portfolio Tracker App is a personal app that allows users to search for stocks (only US at the moment). Users can sign up and keep track of stocks that they’ve bought. Holdings are then calculated against current prices and relevant allocations can be viewed as well. Think Yahoo Finance but with added functionalities!
 
-Check it out at (https://portfolio-tracker-app.netlify.app/register).
+Check it out at (https://portfolio-tracker-app.netlify.app/).
 
 ## Links to Repos
 
